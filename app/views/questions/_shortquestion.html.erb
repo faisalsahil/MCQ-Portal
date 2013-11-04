@@ -1,0 +1,40 @@
+<%- model_class = Topic -%>
+<div class="page-header well">
+  <h4 class="span12"><%= @chapter.book.name %><%= " " %><%= @chapter.book.grade %><%= " " %>
+    <i class='icon-double-angle-right icon-white'></i><%= " " %><%= @chapter.name %><%= " " %>
+    <i class='icon-double-angle-right icon-white'></i><%= " " %><%= "Short Questions" %></h4>
+</div>
+<% flag = 0 %>
+<% index = 1 %>
+<% number = 1 %>
+<%= form_for @chapter, :url => '#', :html => {:class => 'form-horizontal'} do |f| %>
+    <dl class="dl-horizontal">
+
+      <%= f.fields_for :questions, @questions do |q| %>
+          <ul>
+            <%= "Question#" %><%= index %><%= " " %>
+            <strong><%= q.object.name %></strong>
+            <% if q.object.answer.present? %>
+                <br/><strong><%= "Answer:" %></strong><div class="well"><%= q.object.answer.ans %></div>
+            <% else %>
+                <br/><strong><%= "Answer:" %></strong>
+                <div class="well">
+                  <% q.object.options.each do |option| %>
+                      <%= q.label "#{option.mcq}" %>
+                  <% end %>
+                </div>
+            <% end %>
+
+            <% index = index + 1 %>
+
+          </ul>
+          <br/>
+
+      <% end %>
+    </dl>
+    <%= link_to "<< Back", chapter_questions_path(@chapter), :class => 'btn btn-primary' %>
+    <%#= f.submit :class => 'btn btn-primary input-block-level', :value => "Get Result" %>
+<% end %>
+
+
+

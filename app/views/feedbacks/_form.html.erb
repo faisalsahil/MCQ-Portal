@@ -1,0 +1,74 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        var viewModel1={
+                hasCellphone : ko.observable(false),
+                cellphoneNumber: ""
+
+        };
+        var viewModel = {
+            currentProfit: ko.observable(150000)
+        };
+
+        viewModel.profitStatus = ko.computed(function () {
+            return this.currentProfit() < 0 ? "profitWarning" : "profitPositive";
+        }, viewModel);
+
+// Causes the "profitPositive" class to be removed and "profitWarning" class to be added
+        viewModel.currentProfit(50);
+        ko.applyBindings(viewModel,document.getElementById("qww"));
+        ko.applyBindings(viewModel1,document.getElementById("asw"));
+    });
+</script>
+
+<style>
+    .profitWarning {
+        color: red;
+    }
+
+    .profitPositive {
+        color: green;
+    }
+</style>
+
+<%= form_for @feedback, :html => {:class => 'form-horizontal'} do |f| %>
+    <div class="control-group">
+      <%= f.label :name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, :class => 'text_field' %>
+      </div>
+    </div>
+
+    <div id="asw" class="control-group">
+      <%= f.label :mobile, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :mobile, :class => 'text_field', :data => { :bind => "value: cellphoneNumber, enable: hasCellphone" } %>
+        <!--<input type='text'  />-->
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :gender, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select(:gender, GENDER_CONSTANT::GENDER_TYPE) %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :status, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select(:status, STATUS_CONSTANT::STATUS_TYPE) %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :"Your Comment", :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_area :ur_comment, :class => 'text_area textarea_size', :placeholder => "Write your comment here" %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  books_path, :class => 'btn' %>
+    </div>
+<% end %>

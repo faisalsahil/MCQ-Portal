@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  book_name: MyString
+  grade: 1
+  file: MyString
+  chapter_name: MyString
+
+two:
+  book_name: MyString
+  grade: 1
+  file: MyString
+  chapter_name: MyString

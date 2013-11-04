@@ -1,0 +1,100 @@
+<%- model_class = Topic -%>
+<script type="text/javascript" xmlns="http://www.w3.org/1999/html">
+    $(document).ready(function () {
+        $("").click(function () {
+            $(this).next('div').removeClass('invisible');
+
+
+        });
+    });
+
+</script>
+
+
+<div class="page-header well">
+  <h4 class="span12"><%= @chapter.book.name %><%= " " %><%= @chapter.book.grade %><%= " " %>
+    <i class='icon-double-angle-right icon-white'></i><%= " " %><%= @chapter.name %><%= " " %>
+    <i class='icon-double-angle-right icon-white'></i><%= " " %><%= "Result Sheet" %></h4>
+</div>
+<% index = 0 %>
+<% number = 1 %>
+<div>
+  <div class="well span8">
+    <strong  class="label_color"><%= "Note:"%></strong><%= "   " %><strong><%= "MCQs type questions are checked only." %></strong>
+  </div>
+  <div class="well offset8">
+    <h4><%= "Result sheet" %></h4>
+    <hr/>
+    <strong style="color: green;" class="offset6"><%= "Obt.Marks:" "#{@correct_question}" %></strong><br/>
+    <strong class="offset6"><%= "Max.Marks:" "#{@correct_question + @wrong_question}" %></strong>
+
+  </div>
+  <div class="">
+    <dl class="dl-horizontal">
+      <% @questions.each do |q| %>
+
+          <%= "Question#" %><%= number %><%= " " %>
+          <strong><%= q.name %></strong>
+
+          <div class="well">
+            <div class="control-group">
+              <strong :class="control-label"><%= "Your answer:" %></strong>
+
+              <div class="controls control-label">
+                <%= "#{@marked_arr[index]}" %>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <strong class=" control-label"><%= "Correct answer:" %></strong>
+
+              <div class="controls control-label label_color">
+                <%= "#{@question_arr[index]}" %>
+              </div>
+            </div>
+            <div class="offset8">
+              <% if @question_arr[index]== @marked_arr[index] %>
+                  <strong style="color: green;"><%= "Marks:1" %></strong>
+              <% else %>
+                  <strong style="color: #ff0000;"><%= "Marks:0" %></strong>
+              <% end %>
+            </div>
+            <% number = number + 1 %>
+            <% index = index + 1 %>
+
+          </div>
+          <br/>
+
+      <% end %>
+
+      <% index = index + 1 %>
+      <%  %>
+      <% @squestion.each do |q| %>
+          <%= "Question#" %><%= index %><%= " " %>
+          <strong><%= q.name %></strong>
+
+          <div class="control-group">
+            <strong class=" control-label"><%= "Answer:" %></strong>
+
+            <div class="controls control-label well">
+              <% if q.answer.present? %>
+                  <%= q.answer.ans %>
+              <% else %>
+                    <% q.options.each do |option| %>
+                        <%= option.mcq %><br/>
+                    <% end %>
+              <% end %>
+            </div>
+          </div>
+
+          <% index = index + 1 %>
+
+          <br/>
+      <% end %>
+
+
+    </dl>
+    <%= link_to "<< Back", chapter_questions_path(@chapter), :class => 'btn btn-primary' %>
+    <%#= f.submit :class => 'btn btn-primary input-block-level', :value => "Get Result" %>
+  </div>
+</div>

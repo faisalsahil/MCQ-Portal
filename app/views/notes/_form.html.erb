@@ -1,0 +1,31 @@
+<%- model_class = Note -%>
+<div class="page-header well">
+
+  <h4 class="span6">
+    <span class="text-left span1"><i class='icon-double-angle-right icon-white'></i></span><%= " " %><%= "Download Notes" %>
+  </h4>
+</div>
+
+<div>
+  <% @books.each do |book| %>
+      <% if book.notes.present? %>
+          <div class="well">
+            <h4 class="well-small" style="color: blue;">
+              <i class="icon-arrow-right"></i>
+              <strong><%= book.name %><%= " " %><%= book.grade %></strong>
+            </h4>
+
+            <table class="table table-striped">
+              <% book.notes.each_with_index do |note, index| %>
+
+                  <tr>
+                    <td class="span1"><%= index+1 %>.</td>
+                    <td class="span9"> <%= note.chapter.name %> </td>
+                    <td class="span2"> <%= link_to 'Download', download_note_path(note), :class => 'link', :format => 'pdf' %> </td>
+                  </tr>
+              <% end %>
+            </table>
+          </div>
+      <% end %>
+  <% end %>
+</div>

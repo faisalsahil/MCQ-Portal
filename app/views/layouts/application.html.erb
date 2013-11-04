@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MCQ-Portal</title>
+
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript">
+
+      $(document).ready(function () {
+          $('.carousel').carousel();
+              introJs("#intro_farm").start();
+          })
+  </script>
+
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+
+<body>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand " href="#"><b>Decent Academy</b></a>
+
+      <div class="nav-collapse">
+        <ul class="nav pull-right">
+          <li><%= link_to "Home", books_path %></li>
+          <li id="intro_farm"><%= link_to "About Us", :data_intro=>"Hello step one", :data_step=>'1' %></li>
+          <li><%= link_to "Contact Us" %></li>
+          <li class="text-right"><%= link_to "sign In" %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<% @books = Book.all %>
+
+<div class="row-fluid">
+  <div class="span2 well">
+
+    <ul class="nav nav-list">
+      <li class="nav-header">Subjects</li>
+      <% @books.each do |book| %>
+          <li><%= link_to "#{book.name} #{book.grade}", book_chapters_path(book) %></li>
+      <% end %>
+      <li class="nav-header">
+        <hr>
+      </li>
+      <li><%= link_to "Download Notes", notes_path %></li>
+      <li><%= link_to "Your suggestions", new_querey_path %></li>
+      <li><%= link_to "Ask Question", new_askquestion_path %></li>
+      <li><%= link_to "Email", emails_path %></li>
+
+      <li class="nav-header">
+        <hr>
+      </li>
+      <li><%= link_to "Feed Back", new_feedback_path %></li>
+      <li><a href="#">Contcat Us</a></li>
+      <li><a href="#">About Us </a></li>
+    </ul>
+
+
+  </div>
+  <div class="span7"><%= yield %>
+  </div>
+  <div class="span2 well">
+    <h2>Advert 1</h2>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+      pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+      laborum.</p>
+    <hr/>
+    <h2>Advert 2</h2>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+      pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+      laborum.</p>
+
+  </div>
+</div>
+
+</body>
+</html>

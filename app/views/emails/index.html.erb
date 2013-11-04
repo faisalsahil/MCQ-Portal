@@ -1,0 +1,77 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function WebmailViewModel(){
+            var self=this;
+            self.folders= ['Inbox', 'Archieve', 'Sent', 'Spam'];
+            self.chosenFolderId= ko.observable();
+            self.chosenFolderData= ko.observable();
+            self.chosenMailData= ko.observable();
+
+            self.gotoFolder=function(folder){
+                 self.chosenFolderId(folder);
+                self.chosenMailData(null);
+//                self.chosenFolderData;
+//                $.ajax({
+//                    type:"GET",
+//                    dataType:"json",
+//                    url:"/emails/inbox",
+//                    data: {
+//                        folder: folder
+//                    },
+//                    success: function(data){
+//                        self.chosenFolderData = data
+//                    }
+//                });
+                $.get("/emails/inbox",{folder: folder},self.chosenFolderData);
+
+            };
+            self.gotoMail= function(mail){
+                 self.chosenFolderId(mail.id);
+                self.chosenMailData(null);
+                $.get("/mail", { mailId: mail.id },self.chosenMailData);
+
+
+            };
+
+//             self.gotoFolder('Inbox');
+
+        };
+
+
+      ko.applyBindings(new WebmailViewModel());
+    });
+</script>
+
+<style>
+
+
+</style>
+
+
+
+
+<ul class="folders" data-bind="foreach:folders">
+  <li data-bind="text:$data,
+                 css: { selected: $data == $root.chosenFolderId() },
+                 click: $root.gotoFolder">
+   </li>
+
+</ul>
+
+<%= render "abs" %>
+
+<div class="viewMail" data-bind="with: chosenMailData">
+  <div class="mailInfo">
+    <h2 data-bind="text: subject"></h2>
+    <p>From:<span data-bind="text: from"></span></p>
+    <p>To:<span data-bind="text: to"></span></p>
+    <p>Date:<span data-bind="text: date"></span></p>
+  </div>
+  <p class="message" data-bind="html: messageContent"></p>
+</div>
+
+
+
+
+

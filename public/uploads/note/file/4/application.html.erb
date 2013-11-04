@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Coding Stack</title>
+  <%= favicon_link_tag 'favicon.ico' %>
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tag %>
+
+
+  <script type="text/javascript">
+      $(document).ready(function () {
+          $('.fancybox').click(function () {
+              login_fancy_box();
+          });
+
+          $('.create-btn').click(function(){
+              var form_id =   (this.form.id);
+
+              parent.$("#form_recorder").val(form_id);
+
+              });
+
+          $("#" + $('body').attr('class') + "_link").addClass("active");
+
+
+
+      });
+
+          //function of calling fancy box of login
+          function login_fancy_box() {
+              $.fancybox({
+                  //'hideOnContentClick':false
+                  'width':500,
+                  'height':500,
+                  'enableEscapeButton':false,
+                  'overlayShow':true,
+                  'overlayOpacity':0,
+                  'hideOnOverlayClick':false,
+                  'type':'iframe',
+                  'href':'/sessions/login_fancy'
+              });
+
+          }
+
+  </script>
+
+</head>
+<body class="<%= params[:controller] %>" onload="prettyPrint()">
+
+<div id="wrapper">
+  <header id="header">
+    <div class="holder">
+      <h1 class="logo"><a href="<%= root_path %>">coding stack</a></h1>
+      <!--records the field to submit after login popup-->
+      <input type="hidden" id="form_recorder" name="form_recorder" value="" >
+      <!--records the action after login popup-->
+
+      <nav class="login-menu" id="loginmenu">
+        <%= login_nav(current_user) %>
+
+      </nav>
+    </div>
+    <nav id="nav">
+      <ul>
+        <li><a id= "askquestions_link" href="<%= askquestions_path %>" data-controller = "askquestions">Questions</a></li>
+        <li><a id="tags_link" href="#" data-controller = "tags">Tags</a></li>
+        <li><a id= "users_link" href="<%= users_path %>" data-controller = "users">Users</a></li>
+        <li><a id= "badges_link" href="#" data-controller = "badges">Badges</a></li>
+        <li><a id= "unanswered_link" href="<%= askquestions_unanswered_questions_path %>" data-controller = "unanswered">Unanswered</a></li>
+        <li><a id= "pages_link" href="#" data-controller = "pages">Pages</a></li>
+      </ul>
+      <ul class="ask-q">
+        <li><a href="<%= new_askquestion_path %>">Ask Questions</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div id="container">
+    <div class="user_nav">
+
+    </div>
+    <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    <% end %>
+    <%= yield %>
+  </div>
+
+  <input type="hidden" id="like_recorder" name="like_recorder" value="" >
+  <input type="hidden" id="unlike_recorder" name="unlike_recorder" value="">
+  <footer id="footer">
+    <span>All <a href="#">codingqna.com</a> content and data are available under the Creative Commons Attribution 3.0 license</span>
+<span><a href="#">blog</a> | <a href="#">twitter</a> | <a href="#">buzz</a> | <a href="#">identi.ca</a> | <a href="#">code</a> | <a href="#">irc
+  (web chat)</a> | <a href="#">feedback</a> | <a href="#">tos</a> | <a href="#">privacy</a></span>
+    <span>Powered by <a href="#">codingqna.com</a> under the GNU Affero General Public License</span></footer>
+</div>
+</div>
+
+
+</body>
+</html>
+
+

@@ -1,0 +1,46 @@
+<%- model_class = Querey -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:subject) %></th>
+      <th><%= model_class.human_attribute_name(:grade) %></th>
+      <th><%= model_class.human_attribute_name(:question) %></th>
+      <th><%= model_class.human_attribute_name(:curr_ans) %></th>
+      <th><%= model_class.human_attribute_name(:sugg_ans) %></th>
+      <th><%= model_class.human_attribute_name(:reason) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @quereys.each do |querey| %>
+      <tr>
+        <td><%= link_to querey.id, querey_path(querey) %></td>
+        <td><%= querey.subject %></td>
+        <td><%= querey.grade %></td>
+        <td><%= querey.question %></td>
+        <td><%= querey.curr_ans %></td>
+        <td><%= querey.sugg_ans %></td>
+        <td><%= querey.reason %></td>
+        <td><%=l querey.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_querey_path(querey), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      querey_path(querey),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_querey_path,
+            :class => 'btn btn-primary' %>

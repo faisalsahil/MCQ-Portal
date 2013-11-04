@@ -1,0 +1,59 @@
+<%- model_class = Topic -%>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".see-answer").click(function(){
+            $(this).prev('div').removeClass('invisible');
+
+
+        });
+    });
+
+</script>
+
+
+<div class="page-header well">
+  <h4 class="span12"><%= @chapter.book.name %><%= " " %><%= @chapter.book.grade %><%= " " %>
+    <i class='icon-double-angle-right icon-white'></i><%= " " %><%= @chapter.name %><%= " " %>
+    <i class='icon-double-angle-right icon-white'></i><%= " " %><%= "Test Yourself" %></h4>
+</div>
+
+
+<% index = 1 %>
+<%= form_for @chapter, :url => chapter_path(@chapter), :html => {:class => 'form-horizontal'} do |f| %>
+    <dl class="dl-horizontal">
+
+      <%= f.fields_for :questions, @questions do |q| %>
+          <ul>
+            <%= "Question#" %><%= index %><%= " " %><strong><%= q.object.name %></strong>
+            <% q.object.options.each do |option| %>
+                <div class="controls row-fluid">
+                  <div class="span1">
+                    <%= q.radio_button :marked_option_id, option.id %>
+                  </div>
+                  <%= q.label "#{option.mcq}" %>
+                </div>
+            <% end %>
+            <div id="getanswer" class="invisible">
+              <strong><%= "Answer:" %></strong><div class="label_color"><%= q.object.answer.ans %></div>
+            </div>
+            <% index = index + 1 %>
+          </ul><br/>
+      <% end %>
+    </dl>
+    <dl class="dl-horizontal">
+      <%= f.fields_for :questions, @squestion do |q| %>
+          <ul>
+            <%= "Question#" %><%= index %><%= " " %><strong><%= q.object.name %></strong>
+                <div class="row-fluid">
+                  <%= q.text_area :shortanswer,:class=>"textarea_size", :placeholder => "Write your answer here"%>
+                </div>
+            <!--<div id="getanswer" class="invisible">-->
+              <!--<strong><%#= "Answer:" %></strong><div class="label_color"><%#= q.object.answer.ans %></div>-->
+            <!--</div>-->
+            <% index = index + 1 %>
+          </ul><br/>
+      <% end %>
+    </dl>
+    <%= link_to "<< Back", chapter_questions_path(@chapter), :class => 'btn btn-primary' %>
+    <%= f.submit :class => 'btn btn-primary input-block-level', :value => "Get Result" %>
+<% end %>

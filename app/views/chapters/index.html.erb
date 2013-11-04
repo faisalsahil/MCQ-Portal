@@ -1,0 +1,57 @@
+<%- model_class = Chapter -%>
+<script type="text/javascript">
+
+</script>
+
+
+
+
+<div class="page-header well">
+
+  <h4 class="span6">
+    <span class="text-left span1"><i class='icon-double-angle-right icon-white'></i></span><%= " " %><%= @book.name %><%= " " %><%= @book.grade %>
+  </h4>
+</div>
+
+<%# index = 1 %>
+<!--<div>-->
+<%# @chapters.each do |chapter| %>
+<%#= " " %><%#= "Chapter#" %><%#= index %><%#= ":" %>
+<!--<strong><%#= chapter.name %></strong></h4>-->
+<%# chapter.topics.each do |topic| %>
+<!--<div class="controls">-->
+<%#= link_to topic.name, topic_questions_path(topic) %>
+<!--</div>-->
+<%# end %>
+<!--</ul>-->
+<%# index = index + 1 %>
+<%# end %>
+
+<!--</div>-->
+
+<div>
+  <% @chapters.each do |chapter| %>
+
+      <div class="well">
+       <h4 class="well-small" style="color: blue;">
+          <i class="icon-arrow-right"></i>
+          <%= link_to "#{chapter.name}", chapter_questions_path(chapter) %>
+        </h4>
+
+        <!--<table class="table table-striped">-->
+          <!--<%# chapter.topics.each_with_index do |topic, index| %>-->
+
+              <!--<tr>-->
+                <!--<td class="span1"><%#= index+1 %>.</td>-->
+                <!--<td class="span9"> <%#= link_to topic.name, topic_questions_path(topic) %> </td>-->
+              <!--</tr>-->
+          <!--<%# end %>-->
+        <!--</table>-->
+      </div>
+
+  <% end %>
+</div>
+
+<div class="form-actions">
+  <%= link_to "<< Back", books_path, :class => 'btn btn-primary'%>  <br/>
+</div>

@@ -1,0 +1,76 @@
+<%- model_class = Topic -%>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.carousel').carousel();
+        $(window).load(function(){
+            introJs().setOption('doneLabel', 'Next page').start().oncomplete(function() {
+                window.location.href = ' askquestions/new?multipage=true';
+            });
+        });
+
+    });
+
+
+</script>
+
+
+
+<div class="page-header well">
+  <i class='icon-double-angle-right icon-white'></i>
+  <strong>Home</strong>
+</div>
+<div id="myCarousel" class="carousel slide">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="active item"><%= image_tag "2.jpg", :class => 'nav_bar' %></div>
+    <div class="item"><%= image_tag "3.jpg", :class => 'nav_bar' %></div>
+    <div class="item"><%= image_tag "1.jpg", :class => 'nav_bar' %></div>
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+<div>
+  <%= link_to "About Us","#" ,:data => { :intro => "Hello step one", :step => '1'} %>
+  <h3><strong><%= "Owner's Message" %></strong></h3>
+  <%= image_tag "faisal.jpg", :size => "100x100", :align => "right", :class => 'nav_bar img-rounded' %>
+<p>British Grammar School is an English Medium Co-educational school for the Boys and Girls affiliated to State
+  Government of Andhra Pradesh. The medium of instruction in English. School is offering 1 st Standard to 10 th
+  Class. The school, spread over 50,000 Sft. with state - of - the - art infrastructure and backed by a State Govt.
+  Recognized curriculum. The faculty comprises experienced teachers with excellent track record across the world.The
+  Website has been designed to provide essential information for all graduate and postgraduate study programs. We
+  hope you will find it a helpful and lively introduction to our courses and our educational, social and
+  recreational facilities. From our website you will notice that we are the country's leading university, offering a
+  very broad program of studies at the Degree, Diploma, Postgraduate, M.Phil, and Ph.D. levels.
+
+  Being the most prestigious, largest and highest seat of learning in Pakistan, the University has more than 730
+  faculty members, over 30,000 on-campus students and above 500 affiliated colleges and 10 constituent colleges.
+
+  The University has a highly qualified teaching faculty that provides instruction to students in the fields of
+  Arts, Science & Technology, and provides guidance to undertake research in agriculture, industry and allied
+  subjects for developing new products. We are forever reassessing ourselves and our programs in order to develop
+  and improve courses for meeting the ever-changing demands of the world and for preparing students for high
+  professional standards while at the same time promoting personal growth. We are also reorganizing curricula to
+  foster greater creativity in research and exploration into new areas that require integrating finely specialized
+  research fields. At present over 800 students are registered in the Ph.D. programs of various disciplines under
+  the regular Ph.D. scheme. It is our endeavor to produce at least 100 Ph.Ds every year.
+
+  Keeping in view modern trends and market demands; a fiber optic cable network, more than 42 km long, has been laid
+  to provide 330 Mbps high-speed Internet access and LAN connectivity, more than 6500 computers & 140 Laptops for
+  teachers, Video Conferencing and VOIP telephony facility across the New & Old campus. Our plans are bold and
+  imaginative. The commitment of the University of the Punjab is not only to provide higher education, but also to
+  carry out research and to deliver academic services for the benefits of the country and society. Twenty (20) new
+  Departments/ Centers/ Institutes including a School of Biological Sciences and Hailey College of Banking & Finance
+  were established. Besides this 20 new programs were launched.</p>
+
+</div>
+
+<div data-step="3" data-intro="Hello step 2">
+    <%= link_to "contact us", '#' %>
+</div>
+
